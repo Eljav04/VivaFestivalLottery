@@ -13,12 +13,6 @@ const MainPage = () => {
                     className="w-full h-full object-cover scale-110 blur-lg opacity-50"
                 />
             </div>
-            {/* Top Left Branding Overlay */}
-            <div className="absolute top-6 left-8 z-50 pointer-events-none hidden md:block">
-                <span className="font-headline font-black italic text-xl tracking-tighter text-orange-400 opacity-80 uppercase">
-                    VIVA FEST 2026
-                </span>
-            </div>
             {/* Main Content Grid */}
             <div className="relative z-10 w-full h-full grid grid-cols-1 md:grid-cols-[1fr_1.2fr_1fr]">
                 <RouletteGrid />

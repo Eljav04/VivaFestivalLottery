@@ -28,7 +28,7 @@ export const WinnersList: React.FC = () => {
                         if (isLatest) {
                             return (
                                 <div key={winner.id} className="relative group">
-                                    <div className="absolute -inset-[1px] bg-cyan-400 opacity-30 rounded-sm blur-[4px] shadow-[0_0_15px_rgba(34,211,238,0.3)] duration-75"></div>
+                                    <div className="absolute -inset-[1px] bg-cyan-300 opacity-30 rounded-sm blur-[4px] shadow-[0_0_15px_rgba(34,211,238,0.3)] duration-75"></div>
                                     <div className="relative flex items-center justify-between bg-white/5 backdrop-blur-xl p-5 rounded-sm border border-cyan-400/40">
                                         <div className="flex items-center gap-4">
                                             <div className="drop-shadow-lg">
@@ -36,13 +36,10 @@ export const WinnersList: React.FC = () => {
                                             </div>
                                             <div>
                                                 <span className="block text-sm font-headline font-black text-white uppercase tracking-tight">{winner.name}</span>
-                                                <span className="block text-[8px] text-white/40 font-mono mt-1">LOCAL CONFIRMED</span>
+
                                             </div>
                                         </div>
-                                        <div className="flex flex-col items-end">
-                                            <span className="text-[10px] font-black text-green-400 mb-1 tracking-tighter">JACKPOT</span>
-                                            <Trophy className="text-green-400 w-5 h-5 opacity-80" />
-                                        </div>
+
                                     </div>
                                 </div>
                             );
@@ -56,7 +53,7 @@ export const WinnersList: React.FC = () => {
                                         <span className="block text-xs font-headline font-bold text-white/70 group-hover:text-white uppercase tracking-wider">{winner.name}</span>
                                     </div>
                                 </div>
-                                <span className="text-[8px] font-bold text-white/40 uppercase tracking-widest">Confirmed</span>
+
                             </div>
                         );
                     })

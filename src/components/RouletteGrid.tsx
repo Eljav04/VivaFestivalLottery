@@ -66,8 +66,8 @@ export const RouletteGrid: React.FC = () => {
         <section className="relative h-full flex flex-col items-center justify-center p-6 border-r border-white/5 bg-slate-900/20 backdrop-blur-md overflow-hidden">
             <div className="w-full flex-1 flex flex-col justify-center items-center gap-4 py-12 relative overflow-hidden">
                 {/* Viewport Shadows */}
-                <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-[#0a0f1a]/80 to-transparent z-10 pointer-events-none"></div>
-                <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-[#0a0f1a]/80 to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute top-0 w-full h-32 z-10 pointer-events-none"></div>
+                <div className="absolute bottom-0 w-full h-32 z-10 pointer-events-none"></div>
 
                 {eligibleParticipants.length < 1 && displayPlates.length === 0 ? (
                     <div className="text-white/40 font-headline uppercase tracking-widest text-sm z-20">No eligible participants</div>
