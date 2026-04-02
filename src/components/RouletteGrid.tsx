@@ -15,10 +15,8 @@ export const RouletteGrid: React.FC = () => {
 
     const controls = useAnimationControls();
 
-    // Create a default list for idle state
     useEffect(() => {
         if (!spinning && eligibleParticipants.length > 0 && displayPlates.length === 0) {
-            // populate with some items
             setDisplayPlates([...eligibleParticipants].sort(() => 0.5 - Math.random()).slice(0, 10));
         }
     }, [eligibleParticipants, spinning, displayPlates.length]);
@@ -37,31 +35,20 @@ export const RouletteGrid: React.FC = () => {
             const winningIndex = Math.floor(Math.random() * eligibleParticipants.length);
             const chosenWinner = eligibleParticipants[winningIndex];
 
-            // To create a slot machine effect, we create a track of plates.
-            // We'll append many random plates, ending with the winner in the middle.
             const track: Participant[] = [];
-            const trackLength = 40; // Number of items to spin through
+            const trackLength = 40;
 
             for (let i = 0; i < trackLength; i++) {
-                // add random participants
                 track.push(eligibleParticipants[Math.floor(Math.random() * eligibleParticipants.length)]);
             }
 
-            // Ensure the chosen winner is positioned exactly at the end
             track.push(chosenWinner);
-
-            // And add some padding items at the bottom so it's vertically centered
             track.push(eligibleParticipants[Math.floor(Math.random() * eligibleParticipants.length)] || chosenWinner);
             track.push(eligibleParticipants[Math.floor(Math.random() * eligibleParticipants.length)] || chosenWinner);
 
             setDisplayPlates(track);
 
-            // Height of each plate + gap is roughly 120px depending on rendering. 
-            // We will let framer-motion handle the height offset simply by animating translateY.
-            // Easiest is to animate 'y' using percentage or by letting it calculate.
-            // Since we don't know pixel exact height easily, we can use flex column and flex reverse.
-
-            const itemHeight = 112; // Base height estimate
+            const itemHeight = 112;
             const targetY = -(trackLength - 2) * itemHeight;
 
             controls.start({
@@ -76,21 +63,16 @@ export const RouletteGrid: React.FC = () => {
     }, [triggerSpin, spinning, eligibleParticipants, controls, addWinner, setTriggerSpin]);
 
     return (
-        <section className="relative h-full bg-surface-container-lowest flex flex-col items-center justify-center p-6 border-r border-outline-variant/15 overflow-hidden">
-            <div className="absolute inset-0 carbon-texture opacity-30 pointer-events-none"></div>
-
+        <section className="relative h-full flex flex-col items-center justify-center p-6 border-r border-white/5 bg-slate-900/20 backdrop-blur-md overflow-hidden">
             <div className="w-full flex-1 flex flex-col justify-center items-center gap-4 py-12 relative overflow-hidden">
                 {/* Viewport Shadows */}
-                <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-surface-container-lowest to-transparent z-10 pointer-events-none"></div>
-                <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-surface-container-lowest to-transparent z-10 pointer-events-none"></div>
-
-                {/* Center Target Indicator */}
-                <div className="absolute top-1/2 left-0 w-full h-[120px] -translate-y-1/2 pointer-events-none z-0 border-y border-white/5 bg-white/5"></div>
+                <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-[#0a0f1a]/80 to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-[#0a0f1a]/80 to-transparent z-10 pointer-events-none"></div>
 
                 {eligibleParticipants.length < 1 && displayPlates.length === 0 ? (
                     <div className="text-white/40 font-headline uppercase tracking-widest text-sm z-20">No eligible participants</div>
                 ) : (
-                    <div className="relative w-full h-[500px] overflow-hidden flex justify-center items-center">
+                    <div className="relative w-full h-[600px] overflow-hidden flex justify-center items-center">
                         <motion.div
                             className="flex flex-col items-center gap-6 pt-[200px]"
                             animate={controls}
@@ -100,17 +82,25 @@ export const RouletteGrid: React.FC = () => {
                                 const isSelected = !spinning && winner?.id === p.id && i === displayPlates.length - 3;
 
                                 return (
-                                    <div key={`${p.id}-${i}`} className={cn("transition-all duration-300", spinning && "motion-blur-text opacity-40")}>
+                                    <div key={`${p.id}-${i}`} className={cn("transition-all duration-300", spinning && "opacity-40 blur-[1px]")}>
                                         <div className={cn(
-                                            isSelected && "relative group z-20 scale-110",
-                                            (!isSelected || spinning) && "opacity-60 scale-90"
+                                            "transition-all duration-500",
+                                            isSelected ? "relative z-20 scale-125 brightness-110" : "opacity-40 scale-90"
                                         )}>
-                                            {isSelected && (
-                                                <div className="absolute -inset-1 bg-tertiary blur-xl opacity-50 transition duration-1000"></div>
-                                            )}
-
-                                            <div className="relative">
-                                                <CarPlate plate={p.plate} size={isSelected ? "lg" : "md"} active={isSelected} />
+                                            <div className={cn(
+                                                "relative transition-all duration-500 rounded-sm block",
+                                                isSelected ? "shadow-[0_0_40px_rgba(255,255,255,0.2)]" : "opacity-80 grayscale-[30%]"
+                                            )}>
+                                                {isSelected && (
+                                                    <div className="absolute -inset-2 bg-red-600/20 blur-xl opacity-100 z-0"></div>
+                                                )}
+                                                <div className="relative z-10">
+                                                    <CarPlate
+                                                        plate={p.plate}
+                                                        size={isSelected ? "lg" : "md"}
+                                                        active={isSelected}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -125,12 +115,11 @@ export const RouletteGrid: React.FC = () => {
                 <button
                     onClick={() => setTriggerSpin(true)}
                     disabled={spinning || eligibleParticipants.length === 0}
-                    className="w-full group relative flex flex-col items-center justify-center gap-2 py-8 bg-gradient-to-b from-primary to-primary-container rounded-sm shadow-[0_0_40px_rgba(255,172,82,0.3)] hover:scale-[0.98] transition-all duration-75 active:scale-95 disabled:opacity-50 disabled:pointer-events-none overflow-hidden"
+                    className="w-full group relative flex flex-col items-center justify-center gap-2 py-6 bg-gradient-to-b from-orange-500 to-orange-700 rounded-sm shadow-[0_0_40px_rgba(249,115,22,0.4)] hover:scale-[0.98] transition-all duration-100 active:scale-95 disabled:opacity-50 disabled:pointer-events-none overflow-hidden"
                 >
-                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <Power className="w-10 h-10 text-on-primary-container" />
-                    <span className="font-headline font-black text-3xl tracking-[0.2em] text-on-primary-container">SPIN</span>
-                    <div className="absolute -bottom-2 w-full h-1 bg-white/30 blur-sm"></div>
+                    <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <Power className="w-10 h-10 text-white drop-shadow-md" />
+                    <span className="font-headline font-black text-3xl tracking-[0.2em] text-white drop-shadow-md">SPIN</span>
                 </button>
             </div>
         </section>

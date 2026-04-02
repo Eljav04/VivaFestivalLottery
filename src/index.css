@@ -50,23 +50,29 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
+
   .carbon-pattern {
     background-image: radial-gradient(#262626 0.5px, transparent 0.5px);
     background-size: 4px 4px;
   }
+
   .carbon-texture {
-    background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+    background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
     background-size: 4px 4px;
   }
+
   .glow-primary {
     box-shadow: 0 0 20px rgba(255, 172, 82, 0.4);
   }
+
   .glow-secondary {
     box-shadow: 0 0 20px rgba(0, 252, 151, 0.3);
   }
+
   .plate-shadow {
-    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.8);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.8);
   }
+
   .motion-blur-text {
     filter: blur(2px);
     opacity: 0.4;
