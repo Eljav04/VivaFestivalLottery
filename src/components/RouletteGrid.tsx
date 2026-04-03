@@ -29,9 +29,10 @@ export const RouletteGrid: React.FC = () => {
         slides: {
             perView: 5,
             spacing: 0,
+            origin: "center",
         },
         defaultAnimation: {
-            duration: 3000
+            duration: 5000
         },
         drag: false, // Prevents manual drag breaking the programmatic spin
         detailsChanged(s) {
