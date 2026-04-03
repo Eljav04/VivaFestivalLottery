@@ -32,7 +32,7 @@ export const RouletteGrid: React.FC = () => {
             origin: "center",
         },
         defaultAnimation: {
-            duration: 5000
+            duration: 3000
         },
         drag: false, // Prevents manual drag breaking the programmatic spin
         detailsChanged(s) {
@@ -42,7 +42,7 @@ export const RouletteGrid: React.FC = () => {
                 setSelectedIndex(rel);
             }
         },
-        animationEnded(s) {
+        animationEnded() {
             if (spinningRef.current) {
                 spinningRef.current = false;
                 setSpinning(false);
@@ -113,11 +113,11 @@ export const RouletteGrid: React.FC = () => {
     }, [triggerSpin, spinning, eligibleParticipants, addWinner, setTriggerSpin, visualList.length, instanceRef]);
 
     return (
-        <section className="relative h-full flex flex-col items-center justify-center p-6 border-r border-white/5 bg-slate-900/20 backdrop-blur-md overflow-hidden">
+        <section className="relative h-full flex flex-col gap-4 items-center justify-center p-6 overflow-hidden">
             <div className="w-full flex-1 flex flex-col justify-center items-center gap-4 py-12 relative overflow-hidden">
                 {/* Visual Viewport Edges (Shadow Fades) */}
-                <div className="absolute top-0 w-full h-32 z-20 pointer-events-none bg-linear-to-b from-slate-900/80 to-transparent"></div>
-                <div className="absolute bottom-0 w-full h-32 z-20 pointer-events-none bg-linear-to-t from-slate-900/80 to-transparent"></div>
+                <div className="absolute top-0 w-full h-32 z-20 pointer-events-none"></div>
+                <div className="absolute bottom-0 w-full h-32 z-20 pointer-events-none"></div>
 
                 {eligibleParticipants.length < 1 && visualList.length === 0 ? (
                     <div className="text-white/40 font-headline uppercase tracking-widest text-sm z-30">No eligible participants</div>
@@ -135,8 +135,8 @@ export const RouletteGrid: React.FC = () => {
                                     >
                                         <div className={cn(
                                             "w-full max-w-[400px] mx-auto flex items-center justify-center transition-all duration-300 rounded-lg",
-                                            !isSelected ? "opacity-30 blur-[0.5px] scale-90" : "opacity-100 scale-105 z-10",
-                                            spinning && "opacity-60 blur-none scale-100"
+                                            !isSelected ? "opacity-40 blur-[1px] scale-90" : "opacity-100 scale-105 z-10",
+                                            spinning && "opacity-60 blur-[0.5px] scale-100"
                                         )}>
                                             <div className="relative z-10 w-full flex justify-center">
                                                 <CarPlate
@@ -154,7 +154,7 @@ export const RouletteGrid: React.FC = () => {
                 ) : null}
 
                 {/* Center marker for iOS Picker aesthetic */}
-                <div className="absolute top-1/2 -translate-y-1/2 w-full max-w-[420px] h-[120px] border-y border-white/5 z-10 pointer-events-none rounded bg-white/5"></div>
+                <div className="absolute top-1/2 -translate-y-1/2 w-full max-w-[420px] h-[120px] border-y border-white/5 z-10 pointer-events-none rounded-md bg-white/10"></div>
             </div>
 
             <div className="w-full mt-auto pb-12 px-8 z-30 relative">
