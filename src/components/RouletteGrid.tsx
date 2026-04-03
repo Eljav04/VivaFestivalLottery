@@ -14,7 +14,6 @@ export const RouletteGrid: React.FC = () => {
     const eligibleParticipants = participants.filter((p) => !p.isWinner);
 
     const [spinning, setSpinning] = useState(false);
-    const [winner, setWinner] = useState<Participant | null>(null);
     const [visualList, setVisualList] = useState<Participant[]>([]);
 
     // Track selected index explicitly via Keen-Slider callback
@@ -47,7 +46,6 @@ export const RouletteGrid: React.FC = () => {
                 spinningRef.current = false;
                 setSpinning(false);
                 if (winningParticipantRef.current) {
-                    setWinner(winningParticipantRef.current);
                     addWinner(winningParticipantRef.current);
                 }
             }
@@ -81,7 +79,6 @@ export const RouletteGrid: React.FC = () => {
             setTriggerSpin(false);
             setSpinning(true);
             spinningRef.current = true;
-            setWinner(null);
 
             const winningParticipant = eligibleParticipants[Math.floor(Math.random() * eligibleParticipants.length)];
             winningParticipantRef.current = winningParticipant;
@@ -123,35 +120,28 @@ export const RouletteGrid: React.FC = () => {
 
                 {eligibleParticipants.length < 1 && visualList.length === 0 ? (
                     <div className="text-white/40 font-headline uppercase tracking-widest text-sm z-30">No eligible participants</div>
-                ) : (
+                ) : visualList.length === TOTAL_PLATES ? (
                     <div className="relative w-full h-[600px] overflow-hidden">
-                        {/* Keen Slider Container */}
+                        {/* Keen Slider Container mounted ONLY when list is populated to ensure native height/count readings */}
                         <div ref={sliderRef} className="keen-slider h-full w-full relative">
                             {visualList.map((p, i) => {
                                 const isSelected = i === selectedIndex;
-                                const isWinnerGlow = isSelected && !spinning && winner?.id === p.id;
 
                                 return (
                                     <div
                                         key={i}
-                                        className={cn(
-                                            "keen-slider__slide flex items-center justify-center w-full max-w-[400px] mx-auto transition-all duration-300",
-                                            !isSelected ? "opacity-30 blur-[0.5px] scale-90" : "opacity-100 scale-105 z-10",
-                                            spinning && "opacity-60 blur-none scale-100"
-                                        )}
+                                        className="keen-slider__slide flex items-center justify-center w-full"
                                     >
                                         <div className={cn(
-                                            "relative w-full h-full flex items-center justify-center transition-all duration-500 rounded-lg",
-                                            isWinnerGlow ? "shadow-[0_0_50px_rgba(239,68,68,0.5)] ring-2 ring-red-500/60" : ""
+                                            "w-full max-w-[400px] mx-auto flex items-center justify-center transition-all duration-300 rounded-lg",
+                                            !isSelected ? "opacity-30 blur-[0.5px] scale-90" : "opacity-100 scale-105 z-10",
+                                            spinning && "opacity-60 blur-none scale-100"
                                         )}>
-                                            {isWinnerGlow && (
-                                                <div className="absolute inset-2 bg-red-500/20 blur-xl opacity-100 z-0 rounded-full"></div>
-                                            )}
                                             <div className="relative z-10 w-full flex justify-center">
                                                 <CarPlate
                                                     plate={p.plate}
-                                                    size={isWinnerGlow ? "lg" : "md"}
-                                                    active={isWinnerGlow}
+                                                    size="md"
+                                                    active={false} // Removed winner glow as requested
                                                 />
                                             </div>
                                         </div>
@@ -160,7 +150,7 @@ export const RouletteGrid: React.FC = () => {
                             })}
                         </div>
                     </div>
-                )}
+                ) : null}
 
                 {/* Center marker for iOS Picker aesthetic */}
                 <div className="absolute top-1/2 -translate-y-1/2 w-full max-w-[420px] h-[120px] border-y border-white/5 z-10 pointer-events-none rounded bg-white/5"></div>
