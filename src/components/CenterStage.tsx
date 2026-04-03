@@ -9,14 +9,10 @@ export const CenterStage: React.FC = () => {
                 <div className="absolute inset-0 bg-black/10"></div>
             </div>
 
-            <div className="relative z-10 text-center flex flex-col items-center px-12 top-[-40px]">
-                <div className="mb-2 mt-10 bg-cyan-400/10 px-4 py-1 rounded-full border border-cyan-400/20 backdrop-blur-md">
-                    <span className="font-label text-xs font-bold text-cyan-400 tracking-widest uppercase">Live Broadcast Experience</span>
-                </div>
-
-                <h1 className="font-headline font-black text-[9rem] tracking-tighter uppercase leading-[0.9] text-white relative">
-                    <span className="relative z-10">VIVA</span><br />
-                    <span className="relative z-10">FEST</span>
+            <div className="relative z-10 text-center flex flex-col items-center px-12">
+                <h1 className="font-headline font-black text-[9rem] tracking-tighter uppercase leading-none text-white relative">
+                    <span className="relative tracking-wide z-10">VIVA</span><br />
+                    <span className="relative z-10 tracking-wide">FEST</span>
                     <div className="absolute inset-0 blur-[40px] bg-cyan-400/20 mix-blend-overlay"></div>
                     <div className="absolute inset-0 blur-[80px] bg-cyan-500/10"></div>
                 </h1>
@@ -42,7 +38,7 @@ export const CenterStage: React.FC = () => {
                 </div>
 
                 <div className="mt-10 px-16 py-6 bg-white/20 backdrop-blur-xl border border-white/20 rounded-2xl relative shadow-2xl">
-                    <p className="font-headline font-bold  text-xs text-white mb-3 tracking-[0.2em]">TƏRƏFDAŞLAR</p>
+                    <p className="font-headline font-bold  text-sm text-white/80 mb-3 tracking-[0.2em]">TƏRƏFDAŞLAR</p>
                     <div className='flex flex-col gap-2'>
                         <img className='h-40 object-contain' src="viva.png" />
                         <img className='h-40 object-contain' src="bmw_club.png" />

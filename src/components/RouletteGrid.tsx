@@ -141,7 +141,7 @@ export const RouletteGrid: React.FC = () => {
                                             <div className="relative z-10 w-full flex justify-center">
                                                 <CarPlate
                                                     plate={p.plate}
-                                                    size="md"
+                                                    size="lg"
                                                     active={false} // Removed winner glow as requested
                                                 />
                                             </div>

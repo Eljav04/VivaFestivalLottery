@@ -29,7 +29,7 @@ export const WinnersList: React.FC = () => {
                                 <div key={winner.id} className="relative group">
                                     <div className="absolute -inset-[1px] bg-cyan-300 opacity-30 rounded-sm blur-[4px] shadow-[0_0_15px_rgba(34,211,238,0.3)] duration-75"></div>
                                     <div className="relative flex items-center justify-between bg-white/5 backdrop-blur-xl p-5 rounded-sm border border-cyan-400/40">
-                                        <div className="flex items-center gap-4">
+                                        <div className="flex items-center gap-2">
                                             <div className="drop-shadow-lg">
                                                 <CarPlate plate={winner.plate} size="md" />
                                             </div>
