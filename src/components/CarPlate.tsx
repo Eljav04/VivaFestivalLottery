@@ -19,7 +19,7 @@ export const CarPlate: React.FC<CarPlateProps> = ({ plate, size = 'md', active }
         <div className='border border-white rounded-xl'>
             <div
                 className={cn(
-                    'bg-white rounded-[10px] flex items-center gap-4 px-4 py-2 font-headline text-black relative border-[3px] border-black shadow-lg',
+                    'bg-white rounded-[8px] flex items-center gap-4 px-4 py-2 font-headline text-black relative border-[3px] border-black shadow-lg',
                     active && 'ring-4 ring-cyan-400/50 plate-shadow',
                     sizeClasses[size]
                 )}

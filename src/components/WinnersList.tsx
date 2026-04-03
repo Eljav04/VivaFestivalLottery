@@ -10,7 +10,7 @@ export const WinnersList: React.FC = () => {
             <div className="flex justify-between items-start mb-8">
                 <div>
                     <h2 className="font-headline font-black text-2xl text-white tracking-tight uppercase">Selected Winners</h2>
-                    <p className="font-body text-[10px] text-white/30 uppercase tracking-[0.3em] mt-1">Broadcast History</p>
+
                 </div>
                 <span className="font-bold text-[10px] text-cyan-400 bg-cyan-400/10 px-2 py-1 rounded-sm tracking-widest">LIVE REFRESH</span>
             </div>
@@ -67,12 +67,8 @@ export const WinnersList: React.FC = () => {
 
             <div className="pt-6 mt-4 border-t border-white/5 space-y-2">
                 <div className="flex justify-between items-center bg-white/5 p-3 rounded-sm border border-white/5">
-                    <span className="text-[10px] text-white/40 uppercase font-bold tracking-widest">Server Latency</span>
-                    <span className="text-[10px] text-green-400 font-bold">24ms</span>
-                </div>
-                <div className="flex justify-between items-center bg-white/5 p-3 rounded-sm border border-white/5">
-                    <span className="text-[10px] text-white/40 uppercase font-bold tracking-widest">Connection</span>
-                    <span className="text-[10px] text-white/60 font-mono">ENCRYPTED_SSL</span>
+                    <span className="text-xs text-white/40 uppercase font-bold tracking-widest">QALİB SAYİ</span>
+                    <span className="text-xs text-green-400 font-bold">{winners.length}</span>
                 </div>
             </div>
         </section>
