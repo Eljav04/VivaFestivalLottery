@@ -1,13 +1,22 @@
 import { useState } from 'react';
 import { useLotteryStore } from '../store/useLotteryStore';
-import { Power, UserPlus, List, Trash2, CheckCircle2 } from 'lucide-react';
+import { Power, UserPlus, List, Trash2, CheckCircle2, RotateCcw } from 'lucide-react';
+import ConfirmModal from '../components/ConfirmModal';
 
 const AdminPage = () => {
-    const { participants, addParticipant, removeParticipant, setTriggerSpin, triggerSpin } = useLotteryStore();
+    const { participants, addParticipant, removeParticipant, setTriggerSpin, triggerSpin, resetWinners } = useLotteryStore();
 
     const [name, setName] = useState('');
     const [plate, setPlate] = useState('');
     const [phone, setPhone] = useState('');
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalConfig, setModalConfig] = useState({ title: '', message: '', onConfirm: () => { } });
+
+    const openConfirmModal = (title: string, message: string, onConfirm: () => void) => {
+        setModalConfig({ title, message, onConfirm });
+        setIsModalOpen(true);
+    };
 
     const handleAdd = (e: React.FormEvent) => {
         e.preventDefault();
@@ -103,7 +112,10 @@ const AdminPage = () => {
                                             {p.plate}
                                         </div>
                                         <div className="flex items-center gap-1">
-                                            <button onClick={() => removeParticipant(p.id)} className="p-2 text-on-surface-variant hover:text-error transition-all rounded-sm cursor-pointer hover:bg-error/10">
+                                            <button
+                                                onClick={() => openConfirmModal("DİQQƏT", `${p.name} iştirakçısını silmək istədiyinizə əminsiniz?`, () => removeParticipant(p.id))}
+                                                className="p-2 text-on-surface-variant hover:text-error transition-all rounded-sm cursor-pointer hover:bg-error/10"
+                                            >
                                                 <Trash2 size={18} />
                                             </button>
                                         </div>
@@ -111,9 +123,29 @@ const AdminPage = () => {
                                 ))
                             )}
                         </div>
+
+                        {participants.some(p => p.isWinner) && (
+                            <div className="flex justify-end pt-4">
+                                <button
+                                    onClick={() => openConfirmModal("DİQQƏT", "Bütün qalibləri silmək istədiyinizə əminsiniz?", resetWinners)}
+                                    className="flex items-center gap-2 text-[10px] font-headline font-black  hover:text-error transition-all uppercase tracking-widest bg-red-900 text-red-300 px-4 py-2 rounded-sm border border-outline/10 hover:border-error/20"
+                                >
+                                    <RotateCcw size={14} />
+                                    Qalibləri Sıfırla
+                                </button>
+                            </div>
+                        )}
                     </section>
                 </div>
             </main>
+
+            <ConfirmModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onConfirm={modalConfig.onConfirm}
+                title={modalConfig.title}
+                message={modalConfig.message}
+            />
         </div>
     );
 };

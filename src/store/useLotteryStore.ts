@@ -17,6 +17,7 @@ interface LotteryState {
     addWinner: (winner: Participant) => void;
     triggerSpin: boolean;
     setTriggerSpin: (val: boolean) => void;
+    resetWinners: () => void;
 }
 
 export const useLotteryStore = create<LotteryState>()(
@@ -39,6 +40,11 @@ export const useLotteryStore = create<LotteryState>()(
                     participants: state.participants.map(p => p.id === winner.id ? { ...p, isWinner: true } : p)
                 })),
             setTriggerSpin: (val: boolean) => set({ triggerSpin: val }),
+            resetWinners: () =>
+                set((state) => ({
+                    winners: [],
+                    participants: state.participants.map(p => ({ ...p, isWinner: false }))
+                })),
         }),
         {
             name: 'viva-fest-lottery-storage',
