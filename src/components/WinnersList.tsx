@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLotteryStore } from '../store/useLotteryStore';
 import { CarPlate } from './CarPlate';
-import { Trophy } from 'lucide-react';
 
 export const WinnersList: React.FC = () => {
     const winners = useLotteryStore((state) => state.winners);

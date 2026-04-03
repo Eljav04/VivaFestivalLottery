@@ -44,8 +44,8 @@ export const CenterStage: React.FC = () => {
                 <div className="mt-10 px-16 py-6 bg-white/20 backdrop-blur-xl border border-white/20 rounded-2xl relative shadow-2xl">
                     <p className="font-headline font-bold  text-xs text-white mb-3 tracking-[0.2em]">TƏRƏFDAŞLAR</p>
                     <div className='flex flex-col gap-2'>
-                        <img className='h-40 object-contain' src="../public/viva.png" />
-                        <img className='h-40 object-contain' src="../public/bmw_club.png" />
+                        <img className='h-40 object-contain' src="viva.png" />
+                        <img className='h-40 object-contain' src="bmw_club.png" />
                     </div>
 
                 </div>
