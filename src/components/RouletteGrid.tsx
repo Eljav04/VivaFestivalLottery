@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLotteryStore, type Participant } from '../store/useLotteryStore';
 import { CarPlate } from './CarPlate';
-import { Power } from 'lucide-react';
+import { StartEngineButton } from './StartEngineButton';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import { cn } from '../utils/tw';
@@ -157,17 +157,14 @@ export const RouletteGrid: React.FC = () => {
                 <div className="absolute top-1/2 -translate-y-1/2 w-full max-w-[420px] h-[120px] border-y border-white/5 z-10 pointer-events-none rounded-md bg-white/10"></div>
             </div>
 
-            <div className="w-full mt-auto pb-12 px-8 z-30 relative">
-                <button
+            <div className="w-full mt-auto pb-12 flex justify-center items-center z-30 relative scale-75 md:scale-90 lg:scale-100">
+                <StartEngineButton
                     onClick={() => setTriggerSpin(true)}
                     disabled={spinning || eligibleParticipants.length === 0}
-                    className="w-full group relative flex flex-col items-center justify-center gap-2 py-6 bg-linear-to-b from-orange-500 to-orange-700 rounded-sm shadow-[0_0_40px_rgba(249,115,22,0.4)] hover:scale-[0.98] transition-all duration-100 active:scale-95 disabled:opacity-50 disabled:pointer-events-none overflow-hidden"
-                >
-                    <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <Power className="w-10 h-10 text-white drop-shadow-md" />
-                    <span className="font-headline font-black text-3xl tracking-[0.2em] text-white drop-shadow-md">SPIN</span>
-                </button>
+                    isSpinning={spinning}
+                />
             </div>
+
         </section>
     );
 };
