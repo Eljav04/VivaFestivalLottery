@@ -8,7 +8,7 @@ const MainPage = () => {
             {/* Global Background Image with Blur */}
             <div className="absolute inset-0 z-0">
                 <img
-                    src="../public/main_bg.jpg"
+                    src="/main_bg.jpg"
                     alt="background"
                     className="w-full h-full object-cover scale-110 blur-lg opacity-50"
                 />
