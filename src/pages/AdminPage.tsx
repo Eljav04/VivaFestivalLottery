@@ -90,7 +90,7 @@ const AdminPage = () => {
                                 <List className="text-secondary w-6 h-6" />
                                 <h3 className="font-headline font-bold text-lg tracking-tight uppercase">Canlı Siyahı</h3>
                             </div>
-                            <span className="font-label text-[10px] bg-secondary/10 text-secondary px-3 py-1 rounded-full uppercase font-bold">{participants.length} Aktiv Qeydiyyat</span>
+                            <span className="font-label text-xs bg-secondary/10 text-secondary px-3 py-1 rounded-full uppercase font-bold">{participants.length} Aktiv Qeydiyyat</span>
                         </div>
 
                         <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
@@ -100,8 +100,8 @@ const AdminPage = () => {
                                 [...participants].reverse().map(p => (
                                     <div key={p.id} className={`group flex items-center gap-4 bg-surface-container-high hover:bg-surface-variant px-4 py-3 transition-all border-l-2 shadow-lg relative ${p.isWinner ? 'border-secondary bg-surface-container-highest shadow-secondary/5' : 'border-secondary/40'}`}>
                                         {p.isWinner && (
-                                            <div className="absolute top-0 right-0 p-1 px-2 bg-secondary text-on-secondary text-[8px] font-black uppercase tracking-tighter flex gap-1 items-center">
-                                                <CheckCircle2 size={10} /> Təsdiqlənmiş Qalib
+                                            <div className="absolute top-0 right-0 p-1 px-2 bg-secondary text-on-secondary text-[9px] font-black uppercase tracking-tighter flex gap-1 items-center">
+                                                <CheckCircle2 size={10} /> Qalib
                                             </div>
                                         )}
                                         <div className="flex-1 mt-1">
@@ -128,7 +128,7 @@ const AdminPage = () => {
                             <div className="flex justify-end pt-4">
                                 <button
                                     onClick={() => openConfirmModal("DİQQƏT", "Bütün qalibləri silmək istədiyinizə əminsiniz?", resetWinners)}
-                                    className="flex items-center gap-2 text-[10px] font-headline font-black  hover:text-error transition-all uppercase tracking-widest bg-red-900 text-red-300 px-4 py-2 rounded-sm border border-outline/10 hover:border-error/20"
+                                    className="flex items-center gap-2 text-xs font-headline font-black  hover:text-error transition-all uppercase tracking-widest bg-red-900 text-red-300 px-4 py-2 rounded-sm border border-outline/10 hover:border-error/20"
                                 >
                                     <RotateCcw size={14} />
                                     Qalibləri Sıfırla
