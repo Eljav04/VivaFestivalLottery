@@ -15,7 +15,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const AdminPage = () => {
-    const { participants, addParticipant, removeParticipant, setTriggerSpin, triggerSpin, resetWinners } = useLotteryStore();
+    const { participants, addParticipant, removeParticipant, resetWinners } = useLotteryStore();
 
     const { register, handleSubmit, setValue, watch, reset, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema),
@@ -70,14 +70,6 @@ const AdminPage = () => {
                             </h2>
                             <div className="h-[2px] flex-1 bg-linear-to-r from-primary/50 to-transparent"></div>
                         </div>
-
-                        <button
-                            onClick={() => setTriggerSpin(true)}
-                            disabled={triggerSpin}
-                            className="bg-primary text-on-primary px-8 py-3 rounded-sm font-headline font-black text-xs tracking-[0.2em] shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all uppercase disabled:opacity-50 disabled:pointer-events-none"
-                        >
-                            {triggerSpin ? "FIRLANIR..." : "MƏCBURİ FIRLAT"}
-                        </button>
                     </div>
                     <p className="font-label text-xs tracking-widest text-outline uppercase opacity-60">Sistem Qeydiyyatı və Lotereya İdarəedilməsi</p>
                 </header>
