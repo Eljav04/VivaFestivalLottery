@@ -1,14 +1,49 @@
 import { useState } from 'react';
 import { useLotteryStore } from '../store/useLotteryStore';
-import { Power, UserPlus, List, Trash2, CheckCircle2, RotateCcw } from 'lucide-react';
+import { Power, UserPlus, List, Trash2, CheckCircle2, RotateCcw, Smartphone, User } from 'lucide-react';
 import ConfirmModal from '../components/ConfirmModal';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+
+const schema = z.object({
+    name: z.string().min(1, "Ad və soyad daxil edilməlidir"),
+    phone: z.string().min(1, "Telefon nömrəsi daxil edilməlidir"),
+    plate: z.string().regex(/^\d{2}\s[A-Z]{2}\s\d{3}$/, "Nömrə nişanı düzgün formatda deyil (Məsələn: 99 AA 111)"),
+});
+
+type FormData = z.infer<typeof schema>;
 
 const AdminPage = () => {
     const { participants, addParticipant, removeParticipant, setTriggerSpin, triggerSpin, resetWinners } = useLotteryStore();
 
-    const [name, setName] = useState('');
-    const [plate, setPlate] = useState('');
-    const [phone, setPhone] = useState('');
+    const { register, handleSubmit, setValue, watch, reset, formState: { errors } } = useForm<FormData>({
+        resolver: zodResolver(schema),
+        defaultValues: {
+            name: '',
+            phone: '',
+            plate: ''
+        }
+    });
+
+    const plateValue = watch('plate');
+
+    const formatPlate = (val: string) => {
+        const cleaned = val.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+        let formatted = cleaned;
+        if (cleaned.length > 2) {
+            formatted = cleaned.slice(0, 2) + ' ' + cleaned.slice(2);
+        }
+        if (cleaned.length > 4) {
+            formatted = cleaned.slice(0, 2) + ' ' + cleaned.slice(2, 4) + ' ' + cleaned.slice(4, 7);
+        }
+        return formatted.slice(0, 9);
+    };
+
+    const handlePlateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const formatted = formatPlate(e.target.value);
+        setValue('plate', formatted, { shouldValidate: true });
+    };
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalConfig, setModalConfig] = useState({ title: '', message: '', onConfirm: () => { } });
@@ -18,13 +53,9 @@ const AdminPage = () => {
         setIsModalOpen(true);
     };
 
-    const handleAdd = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!name.trim() || !plate.trim()) return;
-        addParticipant({ name, plate: plate.toUpperCase(), phone });
-        setName('');
-        setPlate('');
-        setPhone('');
+    const onAdd = (data: FormData) => {
+        addParticipant({ name: data.name, plate: data.plate, phone: data.phone });
+        reset();
     };
 
     return (
@@ -60,21 +91,64 @@ const AdminPage = () => {
                                 <UserPlus className="text-primary w-6 h-6" />
                                 <h3 className="font-headline font-bold text-lg tracking-tight uppercase">İştirakçı Əlavə Et</h3>
                             </div>
-                            <form className="space-y-6" onSubmit={handleAdd}>
+                            <form className="space-y-6" onSubmit={handleSubmit(onAdd)}>
                                 <div>
                                     <label className="block font-label text-[10px] tracking-widest text-on-surface-variant uppercase mb-2">Ad Soyad</label>
-                                    <input required value={name} onChange={e => setName(e.target.value)} className="w-full bg-surface-variant border-0 border-b-2 border-outline focus:border-secondary focus:ring-0 text-on-surface font-body py-3 px-2 transition-all placeholder:text-outline/40 outline-none" placeholder="Məsələn: DOMINIC TORETTO" type="text" />
-                                </div>
-                                <div>
-                                    <label className="block font-label text-[10px] tracking-widest text-on-surface-variant uppercase mb-2">Qeydiyyat Nişanı (AZ)</label>
-                                    <div className="relative">
-                                        <input required value={plate} onChange={e => setPlate(e.target.value)} className="w-full bg-surface-variant border-0 border-b-2 border-outline focus:border-secondary focus:ring-0 text-on-surface font-label text-lg tracking-widest py-3 px-2 transition-all placeholder:text-outline/40 outline-none" placeholder="99-AA-000" type="text" />
+                                    <div className="relative group">
+                                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-outline/40 group-focus-within:text-primary transition-colors">
+                                            <User size={16} />
+                                        </div>
+                                        <input
+                                            {...register('name')}
+                                            className={`w-full bg-surface-variant/50 border-0 border-b-2 ${errors.name ? 'border-error' : 'border-outline group-focus-within:border-primary'} text-on-surface font-body py-3 pl-12 pr-4 transition-all placeholder:text-outline/40 outline-none rounded-t-lg backdrop-blur-sm`}
+                                            placeholder="Məsələn: ELGÜN MƏMMƏDOV"
+                                            type="text"
+                                        />
                                     </div>
+                                    {errors.name && <p className="mt-1 text-[10px] text-error font-medium uppercase tracking-wider">{errors.name.message}</p>}
                                 </div>
+
                                 <div>
                                     <label className="block font-label text-[10px] tracking-widest text-on-surface-variant uppercase mb-2">Telefon Nömrəsi</label>
-                                    <input value={phone} onChange={e => setPhone(e.target.value)} className="w-full bg-surface-variant border-0 border-b-2 border-outline focus:border-secondary focus:ring-0 text-on-surface font-body py-3 px-2 transition-all placeholder:text-outline/40 outline-none" placeholder="+994 50 000 00 00" type="tel" />
+                                    <div className="relative group">
+                                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-outline/40 group-focus-within:text-primary transition-colors">
+                                            <Smartphone size={16} />
+                                        </div>
+                                        <input
+                                            {...register('phone')}
+                                            className={`w-full bg-surface-variant/50 border-0 border-b-2 ${errors.phone ? 'border-error' : 'border-outline group-focus-within:border-primary'} text-on-surface font-body py-3 pl-12 pr-4 transition-all placeholder:text-outline/40 outline-none rounded-t-lg backdrop-blur-sm`}
+                                            placeholder="+994 50 000 00 00"
+                                            type="tel"
+                                        />
+                                    </div>
+                                    {errors.phone && <p className="mt-1 text-[10px] text-error font-medium uppercase tracking-wider">{errors.phone.message}</p>}
                                 </div>
+
+                                <div>
+                                    <label className="block font-label text-[10px] tracking-widest text-on-surface-variant uppercase mb-2">Qeydiyyat Nişanı (AZ)</label>
+                                    <div className={`relative flex items-stretch h-20 rounded-xl overflow-hidden border-2 transition-all ${errors.plate ? 'border-error bg-error/5 shadow-[0_0_15px_rgba(255,107,107,0.2)]' : 'border-[#1a1a1a] bg-[#f4be08] shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:scale-[1.01]'}`}>
+                                        {/* AZ Side Strip */}
+                                        <div className="w-16 bg-blue-700 flex flex-col items-center justify-center gap-1 border-r-2 border-[#1a1a1a]/20">
+                                            <div className="w-8 h-4 overflow-hidden rounded-[1px] shadow-sm">
+                                                <img src="/az_flag.png" alt="AZ Flag" className="w-full h-full object-cover" />
+                                            </div>
+                                            <span className="text-white font-black text-xs tracking-tighter">AZ</span>
+                                        </div>
+
+                                        {/* Input Area */}
+                                        <div className="flex-1 flex items-center px-4 relative">
+                                            <input
+                                                value={plateValue}
+                                                onChange={handlePlateChange}
+                                                className="w-full bg-transparent border-none focus:ring-0 text-[#1a1a1a] font-headline font-black text-4xl tracking-[0.1em] py-0 outline-none placeholder:text-[#1a1a1a]/20 uppercase"
+                                                placeholder="99 AA 000"
+                                                type="text"
+                                            />
+                                        </div>
+                                    </div>
+                                    {errors.plate && <p className="mt-1 text-[10px] text-error font-medium uppercase tracking-wider">{errors.plate.message}</p>}
+                                </div>
+
                                 <button type="submit" className="w-full mt-4 bg-linear-to-b from-primary to-primary-container text-on-primary py-4 rounded-sm font-headline font-black text-sm tracking-[0.2em] shadow-[0_0_20px_rgba(255,172,82,0.3)] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-3">
                                     <Power className="w-5 h-5" />
                                     ƏLAVƏ ET
