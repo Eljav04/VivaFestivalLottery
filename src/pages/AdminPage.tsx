@@ -100,12 +100,12 @@ const AdminPage = () => {
                                         </div>
                                         <input
                                             {...register('name')}
-                                            className={`w-full bg-surface-variant/50 border-0 border-b-2 ${errors.name ? 'border-error' : 'border-outline group-focus-within:border-primary'} text-on-surface font-body py-3 pl-12 pr-4 transition-all placeholder:text-outline/40 outline-none rounded-t-lg backdrop-blur-sm`}
+                                            className={`w-full bg-gray-300 border-0 border-b-2 ${errors.name ? 'border-error' : 'border-outline group-focus-within:border-primary'} text-gray-900 font-semibold font-body py-3 pl-12 pr-4 transition-all placeholder:text-outline outline-none rounded-t-lg backdrop-blur-sm`}
                                             placeholder="Məsələn: ELGÜN MƏMMƏDOV"
                                             type="text"
                                         />
                                     </div>
-                                    {errors.name && <p className="mt-1 text-[10px] text-error font-medium uppercase tracking-wider">{errors.name.message}</p>}
+                                    {errors.name && <p className="mt-1 text-xs text-error font-medium uppercase tracking-wider">{errors.name.message}</p>}
                                 </div>
 
                                 <div>
@@ -116,37 +116,37 @@ const AdminPage = () => {
                                         </div>
                                         <input
                                             {...register('phone')}
-                                            className={`w-full bg-surface-variant/50 border-0 border-b-2 ${errors.phone ? 'border-error' : 'border-outline group-focus-within:border-primary'} text-on-surface font-body py-3 pl-12 pr-4 transition-all placeholder:text-outline/40 outline-none rounded-t-lg backdrop-blur-sm`}
+                                            className={`w-full bg-gray-300 border-0 border-b-2 ${errors.phone ? 'border-error' : 'border-outline group-focus-within:border-primary'} text-gray-900 font-semibold font-body py-3 pl-12 pr-4 transition-all placeholder:text-gray-500 outline-none rounded-t-lg backdrop-blur-sm`}
                                             placeholder="+994 50 000 00 00"
                                             type="tel"
                                         />
                                     </div>
-                                    {errors.phone && <p className="mt-1 text-[10px] text-error font-medium uppercase tracking-wider">{errors.phone.message}</p>}
+                                    {errors.phone && <p className="mt-1 text-xs text-error font-medium uppercase tracking-wider">{errors.phone.message}</p>}
                                 </div>
 
-                                <div>
+                                <div >
                                     <label className="block font-label text-[10px] tracking-widest text-on-surface-variant uppercase mb-2">Qeydiyyat Nişanı (AZ)</label>
-                                    <div className={`relative flex items-stretch h-20 rounded-xl overflow-hidden border-2 transition-all ${errors.plate ? 'border-error bg-error/5 shadow-[0_0_15px_rgba(255,107,107,0.2)]' : 'border-[#1a1a1a] bg-[#f4be08] shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:scale-[1.01]'}`}>
+                                    <div className={`relative flex items-stretch h-20 rounded-xl overflow-hidden border-2 transition-all ${errors.plate ? 'border-error bg-error/5 shadow-[0_0_15px_rgba(255,107,107,0.2)]' : 'border-black bg-gray-300 shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:scale-[1.01]'}`}>
                                         {/* AZ Side Strip */}
-                                        <div className="w-16 bg-blue-700 flex flex-col items-center justify-center gap-1 border-r-2 border-[#1a1a1a]/20">
+                                        <div className="w-16 bg-white flex flex-col items-center justify-center gap-1 border-r-2 border-black/20">
                                             <div className="w-8 h-4 overflow-hidden rounded-[1px] shadow-sm">
                                                 <img src="/az_flag.png" alt="AZ Flag" className="w-full h-full object-cover" />
                                             </div>
-                                            <span className="text-white font-black text-xs tracking-tighter">AZ</span>
+                                            <span className="text-black font-black text-xs tracking-tighter">AZ</span>
                                         </div>
 
                                         {/* Input Area */}
-                                        <div className="flex-1 flex items-center px-4 relative">
+                                        <div className="flex-1 flex items-center px-4 relative bg-gray-300">
                                             <input
                                                 value={plateValue}
                                                 onChange={handlePlateChange}
-                                                className="w-full bg-transparent border-none focus:ring-0 text-[#1a1a1a] font-headline font-black text-4xl tracking-[0.1em] py-0 outline-none placeholder:text-[#1a1a1a]/20 uppercase"
-                                                placeholder="99 AA 000"
+                                                className="w-full bg-gray-300 border-none focus:ring-0 text-black font-headline font-black text-4xl tracking-widest py-0 outline-none placeholder:text-black/20 uppercase"
+                                                placeholder="90 AA 111"
                                                 type="text"
                                             />
                                         </div>
                                     </div>
-                                    {errors.plate && <p className="mt-1 text-[10px] text-error font-medium uppercase tracking-wider">{errors.plate.message}</p>}
+                                    {errors.plate && <p className="mt-1 text-xs text-error font-medium uppercase tracking-wider">{errors.plate.message}</p>}
                                 </div>
 
                                 <button type="submit" className="w-full mt-4 bg-linear-to-b from-primary to-primary-container text-on-primary py-4 rounded-sm font-headline font-black text-sm tracking-[0.2em] shadow-[0_0_20px_rgba(255,172,82,0.3)] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-3">
