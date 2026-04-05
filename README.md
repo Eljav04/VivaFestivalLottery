@@ -1,73 +1,146 @@
-# React + TypeScript + Vite
+# 🚗 Viva Fest Lottery System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interactive lottery system developed for **Viva Yağ Dəyişmə Mərkəzi** for use during the **Viva Fest 2026** event.
 
-Currently, two official plugins are available:
+📅 **Event Date:** April 12, 2026
+🎯 **Purpose:** Live on-screen lottery experience for selecting winning car plates during the festival.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 📌 About the Project
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This project is a full-screen interactive web application designed for large displays (4:3 format).
+It simulates a dynamic lottery system where car plate numbers are randomly selected in real-time during the event.
 
-## Expanding the ESLint configuration
+The interface is built to create a **live шоу-эффект**, making the selection process engaging and visually appealing for the audience.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## ⚙️ Core Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 🎰 Lottery Roulette
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+* Infinite vertical scrolling (wheel-style, similar to iOS picker)
+* Smooth animation with controlled acceleration and slowdown
+* Always-filled list (no empty gaps)
+* Random winner selection
+* Highlighted winning plate with visual effects
+
+---
+
+### 🏁 Winners System
+
+* Selected winners are stored and displayed in real-time
+* Each new winner appears in a dedicated list
+* Visual emphasis on the latest winner
+
+---
+
+### 📋 Admin Panel
+
+* Add participants (Name, Car Plate, Phone)
+* Delete participants
+* Manage participant list easily
+
+---
+
+### 🔗 Backend Integration
+
+* Data is not stored in local storage
+* All participants are fetched from backend API
+* Updates (add/delete) are sent as full JSON payload
+
+API Endpoints:
+
+* `GET /api/fortune/wheel-items`
+* `POST /api/fortune/wheel-items`
+
+Backend acts as a simple JSON storage.
+
+---
+
+## 🧱 Project Structure
+
+```
+src/
+ ├── components/      # UI components (roulette, plates, winners, etc.)
+ ├── pages/           # MainPage, AdminPage
+ ├── store/           # State management (lottery logic)
+ ├── utils/           # Helpers
+ ├── assets/          # Static files
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🖥️ Main Screen
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+* Designed for large display (event screen)
+* Split layout:
+
+  * Left: Roulette
+  * Center: Event branding
+  * Right: Winners list
+
+![alt text](src/assets/MainPage_View.png)
+---
+
+## 📱 Admin Panel
+
+* Simple and responsive interface
+* Used separately (e.g., from mobile device)
+
+![alt text](src/assets/AdminPage_View.png)
+
+---
+
+## 🎨 Design Concept
+
+* Automotive-inspired UI
+* Neon accents (blue, green, orange)
+* Clean and readable from distance
+* Focus on motion and interaction
+
+---
+
+## 🚀 Tech Stack
+
+* React + Vite
+* TypeScript
+* TailwindCSS
+* Embla Carousel (roulette engine)
+* Zustand (state management)
+
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` file:
+
 ```
+VITE_API_URL=Backend_URL
+```
+
+---
+
+## ▶️ Running the Project
+
+```bash
+npm install
+npm run dev
+```
+
+---
+
+## 📌 Notes
+
+* Designed specifically for live event usage
+* Optimized for performance and stability
+* Backend is intentionally simple (JSON-based)
+
+---
+
+## 🤝 Credits
+
+Developed for **Viva Yağ Dəyişmə Mərkəzi**
+For the **Viva Fest 2026** event
+By Elvin Dzhavadov
