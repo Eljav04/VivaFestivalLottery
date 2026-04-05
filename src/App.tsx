@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from './pages/MainPage';
 import AdminPage from './pages/AdminPage';
+import CheckInPage from './pages/CheckIn';
 import { useLotteryStore, initStore } from './store/useLotteryStore';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/check-in" element={<CheckInPage />} />
       </Routes>
     </BrowserRouter>
   );
