@@ -128,7 +128,6 @@ VITE_API_URL=Backend_URL
 npm install
 npm run dev
 ```
-
 ---
 
 ## 📌 Notes
