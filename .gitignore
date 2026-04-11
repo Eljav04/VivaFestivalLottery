@@ -142,3 +142,8 @@ vite.config.ts.timestamp-*
 /references
 .DS_Store
 dist.zip
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
