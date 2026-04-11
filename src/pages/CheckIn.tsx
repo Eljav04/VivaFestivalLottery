@@ -10,6 +10,7 @@ const schema = z.object({
     plate: z.string().regex(/^\d{2}\s[A-Z]{2}\s\d{3}$/, "Nömrə nişanı düzgün formatda deyil (Məsələn: 99 AA 111)"),
 });
 
+
 type FormData = z.infer<typeof schema>;
 
 const CheckInPage = () => {
