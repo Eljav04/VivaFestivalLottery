@@ -47,16 +47,7 @@ The interface is built to create a **live шоу-эффект**, making the sele
 ### 🔗 Backend Integration
 
 * Data is not stored in local storage
-* All participants are fetched from backend API
-* Updates (add/delete) are sent as full JSON payload
-
-API Endpoints:
-
-* `GET /api/fortune/wheel-items`
-* `POST /api/fortune/wheel-items`
-
-Backend acts as a simple JSON storage.
-
+* All participants are fetched from backend API (VivaFestAPI)
 ---
 
 ## 🧱 Project Structure
